@@ -13,6 +13,7 @@ from myblog_api import serializers
 from myblog_api import models
 from myblog_api import permissions
 
+
 class UserProfileViewSet(viewsets.ModelViewSet):
     """Handle creating and updating profiles"""
     serializer_class = serializers.UserProfileSerializer
@@ -22,6 +23,19 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'email',)
 
+
 class UserLoginApiView(ObtainAuthToken):
     """Handle creating user authentication tokens"""
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+
+class BlogPostViewSet(viewsets.ModelViewSet):
+    """Handles creating and updating blog posts"""
+    authentication_classes = (TokenAuthentication, )
+    serializer_class = serializers.BlogPostSerializer
+    queryset = models.BlogPost.objects.all()
+    permission_classes = (permissions.UpdateOwnPost, IsAuthenticated)
+
+    def perform_create(self, serializer):
+        """sets the user profile to the logged in user """
+        serializer.save(user_profile=self.request.user)

@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from myblog_api import models
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
     """serializes a user profile object"""
 
@@ -26,3 +27,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
         )
 
         return user
+
+
+class BlogPostSerializer(serializers.ModelSerializer):
+    """Serializer of blob post model"""
+    class Meta:
+        model = models.BlogPost
+        fields = ("id", "user_profile", "title",
+                  "autor", "date_published", "body")
+        extra_kwargs = {
+            'user_profile': {
+                'read_only': True
+            }
+        }
