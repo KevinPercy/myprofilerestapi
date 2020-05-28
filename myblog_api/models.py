@@ -26,7 +26,7 @@ class UserProfileManager(BaseUserManager):
         """Create and save a new superuser with given details """
         user = self.create_user(email, name, last_name, password)
 
-        user.is_superuser = True #automatically create in the PermissionsMixin
+        user.is_superuser = True #automatically created in the PermissionsMixin
         user.is_staff = True
 
         user.save(using=self._db)
@@ -47,6 +47,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     objects = UserProfileManager()
 
     USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ['name', 'last_name']
 
     def __str__(self):
         """Return the string representation of our user"""
