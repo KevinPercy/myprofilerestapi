@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework.auth',
+    'rest_framework.authtoken',
     'myblog_api',
 ]
 
@@ -121,3 +121,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'myblog_api.UserProfile'
