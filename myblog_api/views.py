@@ -7,6 +7,7 @@ from rest_framework import filters
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from rest_framework.permissions import IsAuthenticated
+# import django_filters.rest_framework
 
 
 from myblog_api import serializers
@@ -21,7 +22,7 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (permissions.UpdateOwnProfile,)
     filter_backends = (filters.SearchFilter,)
-    search_fields = ('name', 'email',)
+    search_fields = ('name', 'email')
 
 
 class UserLoginApiView(ObtainAuthToken):
@@ -34,8 +35,22 @@ class BlogPostViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication, )
     serializer_class = serializers.BlogPostSerializer
     queryset = models.BlogPost.objects.all()
-    permission_classes = (permissions.UpdateOwnPost, IsAuthenticated)
+    permission_classes = (permissions.UpdateOwnPost, )
+    # filter_backends = (django_filters.rest_framework.DjangoFilterBackend, )
+    # filter_backends = (filters.SearchFilter,)
+    # search_fields = ('is_featured',)
 
     def perform_create(self, serializer):
         """sets the user profile to the logged in user """
         serializer.save(user_profile=self.request.user)
+
+    def get_queryset(self):
+        """
+        Optionally restricts the returned post to a given user,
+        by filtering against a `is_featured` query parameter in the URL.
+        """
+        queryset = models.BlogPost.objects.all()
+        featured = self.request.query_params.get('is_featured', None)
+        if featured is not None:
+            queryset = queryset.filter(is_featured=featured)
+        return queryset

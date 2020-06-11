@@ -62,8 +62,10 @@ class BlogPost(models.Model):
     )
     title = models.CharField(max_length=100)
     autor = models.CharField(max_length=35)
+    is_featured = models.BooleanField(default=False)
     date_published = models.DateTimeField(default=timezone.now)
     body = models.CharField(max_length=6000)
+    image_link = models.CharField(max_length=200)
 
     def __str__(self):
         """return the post title as string"""
