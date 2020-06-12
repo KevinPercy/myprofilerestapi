@@ -4,6 +4,8 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
 from django.conf import settings
 from django.utils import timezone
+from markdownfield.models import MarkdownField, RenderedMarkdownField
+from markdownfield.validators import VALIDATOR_STANDARD
 
 
 class UserProfileManager(BaseUserManager):
@@ -64,9 +66,12 @@ class BlogPost(models.Model):
     autor = models.CharField(max_length=35)
     is_featured = models.BooleanField(default=False)
     date_published = models.DateTimeField(default=timezone.now)
-    body = models.CharField(max_length=6000)
+    # body = models.CharField(max_length=6000)
+    body = MarkdownField(rendered_field='text_rendered',
+                         validator=VALIDATOR_STANDARD)
     image_link = models.CharField(max_length=200)
     description = models.CharField(max_length=1000)
+    text_rendered = RenderedMarkdownField()
 
     def __str__(self):
         """return the post title as string"""
