@@ -61,9 +61,6 @@ class BlogPostViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BlogPostSerializer
     queryset = models.BlogPost.objects.all()
     permission_classes = (permissions.UpdateOwnPost, )
-    # filter_backends = (django_filters.rest_framework.DjangoFilterBackend, )
-    # filter_backends = (filters.SearchFilter,)
-    # search_fields = ('is_featured',)
 
     def perform_create(self, serializer):
         """sets the user profile to the logged in user """

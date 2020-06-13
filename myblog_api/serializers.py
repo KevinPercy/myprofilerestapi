@@ -44,7 +44,7 @@ class BlogPostSerializer(serializers.ModelSerializer):
         model = models.BlogPost
         fields = ("id", "user_profile", "title",
                   "autor", "is_featured", "date_published", "body",
-                  "image_link", "description")
+                  "image_link", "description", "text_rendered")
         extra_kwargs = {
             'user_profile': {
                 'read_only': True
