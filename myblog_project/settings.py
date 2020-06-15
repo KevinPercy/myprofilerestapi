@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'n$b=m%w%ynh82g66$o67=+t&a1n&r19%aggblv#f0nxw&2i_%e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 
 ALLOWED_HOSTS = []
 
@@ -125,4 +125,8 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'myblog_api.UserProfile'
 
-SITE_URL = "http://localhost:3000"
+# SITE_URL = "http://localhost:3000"
+
+SITE_URL = "https://www.kevinccapatinta.com"
+
+STATIC_ROOT = 'static/'
