@@ -24,6 +24,7 @@ SECRET_KEY = 'n$b=m%w%ynh82g66$o67=+t&a1n&r19%aggblv#f0nxw&2i_%e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', 1)))
+# DEBUG = True
 
 ALLOWED_HOSTS = [
     'ec2-18-191-233-225.us-east-2.compute.amazonaws.com',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'myblog_api',
     'markdownfield',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +56,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    "https://master.d2iflgr89yzlqi.amplifyapp.com",
+    "https://kevinccapatinta.com",
+    "http://localhost:3000"
 ]
 
 ROOT_URLCONF = 'myblog_project.urls'
