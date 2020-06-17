@@ -29,6 +29,7 @@ DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 ALLOWED_HOSTS = [
     'ec2-18-218-192-61.us-east-2.compute.amazonaws.com',
     '18.218.192.61',
+    'miblogapirest.pe',
     '127.0.0.1'
 ]
 
