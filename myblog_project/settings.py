@@ -66,6 +66,7 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "https://master.d2iflgr89yzlqi.amplifyapp.com",
     "https://kevinccapatinta.com",
+    "https://www.kevinccapatinta.com",
 ]
 
 ROOT_URLCONF = 'myblog_project.urls'
