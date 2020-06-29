@@ -8,6 +8,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import action
+from rest_framework.authtoken.models import Token
 # import django_filters.rest_framework
 
 
@@ -53,6 +54,11 @@ class UserProfileViewSet(viewsets.ModelViewSet):
 class UserLoginApiView(ObtainAuthToken):
     """Handle creating user authentication tokens"""
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+    def post(self, request, *args, **kwargs):
+        response = super(UserLoginApiView, self).post(request, *args, **kwargs)
+        token = Token.objects.get(key=response.data["token"])
+        return Response({"token": token.key, "id": token.user_id})
 
 
 class BlogPostViewSet(viewsets.ModelViewSet):
